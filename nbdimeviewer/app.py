@@ -87,11 +87,12 @@ def main_server(on_port=None, **params):
     print("Using params:")
     print(params)
     port = params.pop("port")
+    address = params.pop("ip")
     app = make_app(**params)
     if port != 0 or on_port is None:
-        app.listen(port, address='127.0.0.1')
+        app.listen(port, address=address)
     else:
-        sockets = netutil.bind_sockets(0, '127.0.0.1')
+        sockets = netutil.bind_sockets(0, address)
         server = httpserver.HTTPServer(app)
         server.add_sockets(sockets)
         for s in sockets:
@@ -105,13 +106,16 @@ def main_server(on_port=None, **params):
 
 def _build_arg_parser():
     """
-    Creates an argument parser that lets the user specify a port
-    and displays a help message.
+    Creates an argument parser
     """
     description = 'Web interface for Nbdime.'
     parser = ArgumentParser(description=description)
     add_generic_args(parser)
     add_web_args(parser)
+    parser.add_argument(
+        '--ip',
+        default='0.0.0.0',
+        help='Which IP/name to have the server listen on.')
     return parser
 
 
