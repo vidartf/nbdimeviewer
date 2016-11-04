@@ -17,7 +17,8 @@ setup_args = dict(
     version = '0.1.0',
     packages = ["nbdimeviewer"],
     install_requires = [
-        'nbdime'
+        'nbdime',
+        'requests>=2.11'
     ],
     author = "The Jupyter Development Team",
     description = "Jupyter Notebook Diff Viewer",
