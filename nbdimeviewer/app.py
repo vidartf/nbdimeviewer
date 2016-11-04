@@ -53,7 +53,6 @@ class NbdimeViewerApiHandler(ApiDiffHandler):
         try:
             nb = nbformat.reads(r.text, as_version=4)
         except:
-            raise
             raise web.HTTPError(400, "Invalid notebook: %s" % truncate_filename(arg))
 
         return nb
@@ -70,15 +69,6 @@ def make_app(**params):
         "static_path": static_path,
         "template_path": template_path,
         }
-
-    if nbdime.utils.is_in_repo(nbdimeviewer.__file__):
-        # don't cache when working from repo
-        settings.update({
-            # "autoreload": True,
-            "compiled_template_cache": False,
-            "static_hash_cache": False,
-            # "serve_traceback": True,
-            })
 
     return web.Application(handlers, **settings)
 
