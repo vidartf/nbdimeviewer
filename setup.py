@@ -17,9 +17,14 @@ setup_args = dict(
     version = '0.1.0',
     packages = ["nbdimeviewer"],
     install_requires = [
-        'nbdime',
-        'requests>=2.11'
+        'requests>=2.11',
+        'pycurl',
+        'elasticsearch',
+        'newrelic'
     ],
+    extras_requires = {
+        'memcache': ['pylibmc'],
+    },
     author = "The Jupyter Development Team",
     description = "Jupyter Notebook Diff Viewer",
     long_description = "Jupyter nbdime as a web service",
